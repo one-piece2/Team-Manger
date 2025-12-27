@@ -8,13 +8,7 @@ import {
   Unique,
 } from 'typeorm';
 import { User } from './user.entity';
-
-export enum AccountProvider {
-  GOOGLE = 'GOOGLE',
-  GITHUB = 'GITHUB',
-  FACEBOOK = 'FACEBOOK',
-  EMAIL = 'EMAIL',
-}
+import { AccountProvider } from '../../common/enums/account-provider.enum';
 
 @Entity('accounts')
 //确保数据库中provider和providerId的组合是唯一的

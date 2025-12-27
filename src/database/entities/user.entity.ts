@@ -10,10 +10,10 @@ import {
   BeforeInsert,
   BeforeUpdate,
 } from 'typeorm';
-import * as bcrypt from 'bcrypt';
 import { Account } from './account.entity';
 import { Member } from './member.entity';
 import { Workspace } from './workspace.entity';
+import { hashValue, compareValue } from '../../common/utils/bcrypt.util';
 
 @Entity('users')
 export class User {
@@ -63,13 +63,12 @@ export class User {
   @BeforeUpdate()
   async hashPassword() {
     if (this.password) {
-      const salt = await bcrypt.genSalt(10);
-      this.password = await bcrypt.hash(this.password, salt);
+      this.password = await hashValue(this.password);
     }
   }
 
   async comparePassword(plainPassword: string): Promise<boolean> {
-    return bcrypt.compare(plainPassword, this.password);
+    return compareValue(plainPassword, this.password);
   }
 
   omitPassword(): Omit<User, 'password' | 'comparePassword' | 'hashPassword'> {

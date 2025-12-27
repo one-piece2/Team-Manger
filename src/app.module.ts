@@ -26,7 +26,7 @@ import googleConfig from './config/goole.config';
         database: configService.get<string>('database.database')!,
         entities: [__dirname + '/database/entities/*.entity{.ts,.js}'],
         synchronize: configService.get<string>('app.nodeEnv') === 'development',
-        logging: configService.get<string>('app.nodeEnv') === 'development',
+        logging: false,
       }),
       inject: [ConfigService],
     }),

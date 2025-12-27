@@ -11,21 +11,8 @@ import {
 import { Project } from './project.entity';
 import { Workspace } from './workspace.entity';
 import { User } from './user.entity';
-import { v4 as uuidv4 } from 'uuid';
-
-export enum TaskStatus {
-  BACKLOG = 'BACKLOG',
-  TODO = 'TODO',
-  IN_PROGRESS = 'IN_PROGRESS',
-  IN_REVIEW = 'IN_REVIEW',
-  DONE = 'DONE',
-}
-
-export enum TaskPriority {
-  LOW = 'LOW',
-  MEDIUM = 'MEDIUM',
-  HIGH = 'HIGH',
-}
+import { TaskStatus, TaskPriority } from '../../common/enums/task.enum';
+import { generateTaskCode } from '../../common/utils/uuid.util';
 
 @Entity('tasks')
 export class Task {
@@ -92,9 +79,9 @@ export class Task {
   updatedAt: Date;
 
   @BeforeInsert()
-  generateTaskCode() {
+  setTaskCode() {
     if (!this.taskCode) {
-      this.taskCode = `TASK-${uuidv4().substring(0, 8).toUpperCase()}`;
+      this.taskCode = generateTaskCode();
     }
   }
 }

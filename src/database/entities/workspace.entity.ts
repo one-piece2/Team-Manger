@@ -12,7 +12,7 @@ import {
 import { User } from './user.entity';
 import { Member } from './member.entity';
 import { Project } from './project.entity';
-import { v4 as uuidv4 } from 'uuid';
+import { generateInviteCode } from '../../common/utils/uuid.util';
 
 @Entity('workspaces')
 export class Workspace {
@@ -52,13 +52,13 @@ export class Workspace {
   updatedAt: Date;
 
   @BeforeInsert()
-  generateInviteCode() {
+  setInviteCode() {
     if (!this.inviteCode) {
-      this.inviteCode = uuidv4().replace(/-/g, '').substring(0, 8).toUpperCase();
+      this.inviteCode = generateInviteCode();
     }
   }
 
   resetInviteCode(): void {
-    this.inviteCode = uuidv4().replace(/-/g, '').substring(0, 8).toUpperCase();
+    this.inviteCode = generateInviteCode();
   }
 }

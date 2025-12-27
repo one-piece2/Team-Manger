@@ -7,30 +7,7 @@ import {
   OneToMany,
 } from 'typeorm';
 import { Member } from './member.entity';
-
-export enum RoleName {
-  OWNER = 'OWNER',
-  ADMIN = 'ADMIN',
-  MEMBER = 'MEMBER',
-}
-
-export enum Permission {
-  CREATE_WORKSPACE = 'CREATE_WORKSPACE',
-  DELETE_WORKSPACE = 'DELETE_WORKSPACE',
-  EDIT_WORKSPACE = 'EDIT_WORKSPACE',
-  //管理工作区设置
-  MANAGE_WORKSPACE_SETTINGS = 'MANAGE_WORKSPACE_SETTINGS',
-  ADD_MEMBER = 'ADD_MEMBER',
-  CHANGE_MEMBER_ROLE = 'CHANGE_MEMBER_ROLE',
-  REMOVE_MEMBER = 'REMOVE_MEMBER',
-  CREATE_PROJECT = 'CREATE_PROJECT',
-  EDIT_PROJECT = 'EDIT_PROJECT',
-  DELETE_PROJECT = 'DELETE_PROJECT',
-  CREATE_TASK = 'CREATE_TASK',
-  EDIT_TASK = 'EDIT_TASK',
-  DELETE_TASK = 'DELETE_TASK',
-  VIEW_ONLY = 'VIEW_ONLY',
-}
+import { RoleName, Permission } from '../../common/enums/role.enum';
 
 @Entity('roles')
 export class Role {
