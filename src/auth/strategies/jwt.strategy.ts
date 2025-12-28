@@ -2,9 +2,8 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { ConfigService } from '@nestjs/config';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { User } from '../../database/entities/user.entity';
+import { UserService } from '../../user/user.service';
+import { UserResponseDto } from '../../user/dto/user-response.dto';
 
 //JWT 策略
 interface JwtPayload {
@@ -17,8 +16,7 @@ interface JwtPayload {
 export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
   constructor(
     private configService: ConfigService,
-    @InjectRepository(User)
-    private userRepository: Repository<User>,
+    private userService: UserService,
   ) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
@@ -27,13 +25,12 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
     });
   }
 
-  async validate(payload: JwtPayload): Promise<User> {
+  async validate(payload: JwtPayload): Promise<UserResponseDto> {
     const { userId } = payload;
 
-    const user = await this.userRepository.findOne({
-      where: { id: userId },
-      relations: ['currentWorkspace'],
-    });
+    // 使用 UserService.findById 进行验证
+    // 该方法不加载关联关系，性能更好
+    const user = await this.userService.findById(userId);
 
     if (!user || !user.isActive) {
       throw new UnauthorizedException('User not found or inactive');

@@ -7,6 +7,7 @@ import { AuthController } from './auth.controller';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { LocalStrategy } from './strategies/local.strategy';
 import { GoogleStrategy } from './strategies/google.strategy';
+import { UserModule } from '../user/user.module';
 import { User } from '../database/entities/user.entity';
 import { Account } from '../database/entities/account.entity';
 import { Workspace } from '../database/entities/workspace.entity';
@@ -26,6 +27,7 @@ import { Role } from '../database/entities/role.entity';
       inject: [ConfigService],
     }),
     TypeOrmModule.forFeature([User, Account, Workspace, Member, Role]),
+    UserModule,
   ],
   controllers: [AuthController],
   providers: [AuthService, JwtStrategy, LocalStrategy, GoogleStrategy],

@@ -6,6 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
 import { RoleInitService } from './database/services/role-init.service';
 import { Role } from './database/entities/role.entity';
+import { UserModule } from './user/user.module';
 import appConfig from './config/app.config';
 import databaseConfig from './config/database.config';
 import jwtConfig from './config/jwt.config';
@@ -35,6 +36,7 @@ import googleConfig from './config/goole.config';
     }),
     TypeOrmModule.forFeature([Role]),
     AuthModule,
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService, RoleInitService],

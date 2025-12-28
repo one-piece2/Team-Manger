@@ -14,6 +14,7 @@ import type { Response, Request } from 'express';
 import { ConfigService } from '@nestjs/config';
 import { AuthService } from './auth.service';
 import { RegisterDto } from './dto/register.dto';
+import { AuthResponseDto, RegisterResponseDto } from './dto/auth-response.dto';
 import { Public } from '../common/decorators/public.decorator';
 import { User } from '../database/entities/user.entity';
 
@@ -28,10 +29,12 @@ export class AuthController {
   @Public()
   @Post('register')
   @HttpCode(HttpStatus.CREATED)
-  async register(@Body() registerDto: RegisterDto) {
-    await this.authService.register(registerDto);
+  async register(@Body() registerDto: RegisterDto): Promise<RegisterResponseDto> {
+    const result = await this.authService.register(registerDto);
     return {
       message: 'User created successfully',
+      userId: result.userId,
+      workspaceId: result.workspaceId,
     };
   }
 
@@ -41,12 +44,12 @@ export class AuthController {
   @UseGuards(AuthGuard('local'))
   @Post('login')
   @HttpCode(HttpStatus.OK)
-  async login(@Req() req: Request & { user: User }) {
+  async login(@Req() req: Request & { user: User }): Promise<AuthResponseDto> {
     const user = req.user;
     const accessToken = this.authService.generateToken(user.id);
     return {
       message: 'Logged in successfully',
-      access_token: accessToken,
+      accessToken,
       user: {
         id: user.id,
         name: user.name,
@@ -61,7 +64,7 @@ export class AuthController {
  // 登出 POST /api/auth/logout
   @Post('logout')
   @HttpCode(HttpStatus.OK)
-  async logout() {
+  async logout(): Promise<{ message: string }> {
     return {
       message: 'Logged out successfully',
     };
