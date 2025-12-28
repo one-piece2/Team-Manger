@@ -9,6 +9,7 @@ import { Role } from './database/entities/role.entity';
 import { UserModule } from './user/user.module';
 import { WorkspaceModule } from './workspace/workspace.module';
 import { MemberModule } from './member/member.module';
+import { ProjectModule } from './project/project.module';
 import appConfig from './config/app.config';
 import databaseConfig from './config/database.config';
 import jwtConfig from './config/jwt.config';
@@ -41,6 +42,7 @@ import googleConfig from './config/goole.config';
     UserModule,
     WorkspaceModule,
     MemberModule,
+    ProjectModule,
   ],
   controllers: [AppController],
   providers: [AppService, RoleInitService],
