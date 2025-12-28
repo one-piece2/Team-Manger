@@ -3,6 +3,9 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { AuthModule } from './auth/auth.module';
+import { RoleInitService } from './database/services/role-init.service';
+import { Role } from './database/entities/role.entity';
 import appConfig from './config/app.config';
 import databaseConfig from './config/database.config';
 import jwtConfig from './config/jwt.config';
@@ -30,8 +33,10 @@ import googleConfig from './config/goole.config';
       }),
       inject: [ConfigService],
     }),
+    TypeOrmModule.forFeature([Role]),
+    AuthModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, RoleInitService],
 })
 export class AppModule {}
