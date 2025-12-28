@@ -8,6 +8,7 @@ import { RoleInitService } from './database/services/role-init.service';
 import { Role } from './database/entities/role.entity';
 import { UserModule } from './user/user.module';
 import { WorkspaceModule } from './workspace/workspace.module';
+import { MemberModule } from './member/member.module';
 import appConfig from './config/app.config';
 import databaseConfig from './config/database.config';
 import jwtConfig from './config/jwt.config';
@@ -39,6 +40,7 @@ import googleConfig from './config/goole.config';
     AuthModule,
     UserModule,
     WorkspaceModule,
+    MemberModule,
   ],
   controllers: [AppController],
   providers: [AppService, RoleInitService],
