@@ -40,7 +40,7 @@ export class User {
   lastLogin: Date;
 //当前工作区id
   @Column({ name: 'current_workspace_id', type: 'uuid', nullable: true })
-  currentWorkspaceId: string;
+  currentWorkspaceId: string | null;
 
   @ManyToOne(() => Workspace, { nullable: true })
   @JoinColumn({ name: 'current_workspace_id' })

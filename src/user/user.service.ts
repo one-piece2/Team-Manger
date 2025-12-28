@@ -93,10 +93,7 @@ export class UserService {
     await this.userRepository.save(user);
 
     // 重新加载以获取更新后的 currentWorkspace 关联
-    const updatedUser = await this.userRepository.findOne({
-      where: { id: userId },
-      relations: ['currentWorkspace'],
-    });
+    const updatedUser = await this.getCurrentUser(userId);
 
     return plainToClass(UserResponseDto, updatedUser, { excludeExtraneousValues: true });
   }
