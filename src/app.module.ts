@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { APP_GUARD, APP_FILTER } from '@nestjs/core';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
@@ -11,6 +12,8 @@ import { WorkspaceModule } from './modules/workspace/workspace.module';
 import { MemberModule } from './modules/member/member.module';
 import { ProjectModule } from './modules/project/project.module';
 import { TaskModule } from './modules/task/task.module';
+import { JwtAuthGuard } from './common/guards/jwt-auth.guard';
+import { HttpExceptionFilter } from './common/filters/http-exception.filter';
 import appConfig from './config/app.config';
 import databaseConfig from './config/database.config';
 import jwtConfig from './config/jwt.config';
@@ -47,6 +50,17 @@ import googleConfig from './config/goole.config';
     TaskModule,
   ],
   controllers: [AppController],
-  providers: [AppService, RoleInitService],
+  providers: [
+    AppService,
+    RoleInitService,
+    {
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard,
+    },
+    {
+      provide: APP_FILTER,
+      useClass: HttpExceptionFilter,
+    },
+  ],
 })
 export class AppModule {}
