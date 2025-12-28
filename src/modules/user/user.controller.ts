@@ -1,8 +1,8 @@
 import { Controller, Get, HttpStatus, HttpCode } from '@nestjs/common';
 
 import { UserService } from './user.service';
-import { CurrentUser } from '../common/decorators/current-user.decorator';
-import { User } from '../database/entities/user.entity';
+import { CurrentUser } from '../../common/decorators/current-user.decorator';
+import { User } from '../../database/entities/user.entity';
 
 @Controller('user')
 export class UserController {

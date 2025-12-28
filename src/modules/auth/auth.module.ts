@@ -8,11 +8,11 @@ import { JwtStrategy } from './strategies/jwt.strategy';
 import { LocalStrategy } from './strategies/local.strategy';
 import { GoogleStrategy } from './strategies/google.strategy';
 import { UserModule } from '../user/user.module';
-import { User } from '../database/entities/user.entity';
-import { Account } from '../database/entities/account.entity';
-import { Workspace } from '../database/entities/workspace.entity';
-import { Member } from '../database/entities/member.entity';
-import { Role } from '../database/entities/role.entity';
+import { User } from '../../database/entities/user.entity';
+import { Account } from '../../database/entities/account.entity';
+import { Workspace } from '../../database/entities/workspace.entity';
+import { Member } from '../../database/entities/member.entity';
+import { Role } from '../../database/entities/role.entity';
 
 @Module({
   imports: [

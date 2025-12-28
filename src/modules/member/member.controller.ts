@@ -6,8 +6,8 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 import { MemberService } from './member.service';
-import { CurrentUser } from '../common/decorators/current-user.decorator';
-import { User } from '../database/entities/user.entity';
+import { CurrentUser } from '../../common/decorators/current-user.decorator';
+import { User } from '../../database/entities/user.entity';
 
 @Controller('member')
 export class MemberController {

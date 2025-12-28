@@ -15,8 +15,8 @@ import { ConfigService } from '@nestjs/config';
 import { AuthService } from './auth.service';
 import { RegisterDto } from './dto/register.dto';
 import { AuthResponseDto, RegisterResponseDto } from './dto/auth-response.dto';
-import { Public } from '../common/decorators/public.decorator';
-import { User } from '../database/entities/user.entity';
+import { Public } from '../../common/decorators/public.decorator';
+import { User } from '../../database/entities/user.entity';
 
 @Controller('auth')
 export class AuthController {

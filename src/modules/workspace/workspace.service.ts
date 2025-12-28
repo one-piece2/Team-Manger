@@ -2,22 +2,22 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, DataSource } from 'typeorm';
 
-import { Workspace } from '../database/entities/workspace.entity';
-import { User } from '../database/entities/user.entity';
-import { Member } from '../database/entities/member.entity';
-import { Role } from '../database/entities/role.entity';
+import { Workspace } from '../../database/entities/workspace.entity';
+import { User } from '../../database/entities/user.entity';
+import { Member } from '../../database/entities/member.entity';
+import { Role } from '../../database/entities/role.entity';
 
-import { Project } from '../database/entities/project.entity';
-import { Task } from '../database/entities/task.entity';
+import { Project } from '../../database/entities/project.entity';
+import { Task } from '../../database/entities/task.entity';
 
 import { CreateWorkspaceDto } from './dto/create-workspace.dto';
 import { UpdateWorkspaceDto } from './dto/update-workspace.dto';
 import {
   NotFoundException,
   BadRequestException,
-} from '../common/exceptions/app.exception';
-import { TaskStatus } from '../common/enums/task.enum';
-import { RoleName } from '../common/enums/role.enum';
+} from '../../common/exceptions/app.exception';
+import { TaskStatus } from '../../common/enums/task.enum';
+import { RoleName } from '../../common/enums/role.enum';
 @Injectable()
 export class WorkspaceService {
   constructor(

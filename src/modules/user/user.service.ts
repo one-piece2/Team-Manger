@@ -2,8 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { plainToClass } from 'class-transformer';
-import { User } from '../database/entities/user.entity';
-import { NotFoundException } from '../common/exceptions/app.exception';
+import { User } from '../../database/entities/user.entity';
+import { NotFoundException } from '../../common/exceptions/app.exception';
 import { UserResponseDto } from './dto/user-response.dto';
 
 @Injectable()

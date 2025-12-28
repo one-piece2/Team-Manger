@@ -17,12 +17,12 @@ import { WorkspaceService } from './workspace.service';
 import { CreateWorkspaceDto } from './dto/create-workspace.dto';
 import { UpdateWorkspaceDto } from './dto/update-workspace.dto';
 import { ChangeRoleDto } from './dto/change-role.dto';
-import { CurrentUser } from '../common/decorators/current-user.decorator';
-import { RequirePermissions } from '../common/decorators/permissions.decorator';
-import { Permission } from '../common/enums/role.enum';
-import { User } from '../database/entities/user.entity';
-import { RoleGuard } from '../common/guards/role.guard';
-import { MemberRoleInterceptor } from '../common/interceptors/member-role.interceptor';
+import { CurrentUser } from '../../common/decorators/current-user.decorator';
+import { RequirePermissions } from '../../common/decorators/permissions.decorator';
+import { Permission } from '../../common/enums/role.enum';
+import { User } from '../../database/entities/user.entity';
+import { RoleGuard } from '../../common/guards/role.guard';
+import { MemberRoleInterceptor } from '../../common/interceptors/member-role.interceptor';
 
 @Controller('workspace')
 export class WorkspaceController {

@@ -2,12 +2,12 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-import { Project } from '../database/entities/project.entity';
-import { Task } from '../database/entities/task.entity';
-import { TaskStatus } from '../common/enums/task.enum';
+import { Project } from '../../database/entities/project.entity';
+import { Task } from '../../database/entities/task.entity';
+import { TaskStatus } from '../../common/enums/task.enum';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
-import { NotFoundException } from '../common/exceptions/app.exception';
+import { NotFoundException } from '../../common/exceptions/app.exception';
 
 @Injectable()
 export class ProjectService {

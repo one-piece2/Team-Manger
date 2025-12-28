@@ -18,12 +18,12 @@ import { ProjectService } from './project.service';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
 import { ProjectQueryDto } from './dto/project-query.dto';
-import { CurrentUser } from '../common/decorators/current-user.decorator';
-import { RequirePermissions } from '../common/decorators/permissions.decorator';
-import { Permission } from '../common/enums/role.enum';
-import { User } from '../database/entities/user.entity';
-import { RoleGuard } from '../common/guards/role.guard';
-import { MemberRoleInterceptor } from '../common/interceptors/member-role.interceptor';
+import { CurrentUser } from '../../common/decorators/current-user.decorator';
+import { RequirePermissions } from '../../common/decorators/permissions.decorator';
+import { Permission } from '../../common/enums/role.enum';
+import { User } from '../../database/entities/user.entity';
+import { RoleGuard } from '../../common/guards/role.guard';
+import { MemberRoleInterceptor } from '../../common/interceptors/member-role.interceptor';
 
 @Controller('project')
 export class ProjectController {

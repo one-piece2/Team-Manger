@@ -3,18 +3,18 @@ import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, DataSource } from 'typeorm';
 import { compareValue,hashValue } from 'src/common/utils/bcrypt.util';
-import { User } from '../database/entities/user.entity';
-import { Account } from '../database/entities/account.entity';
+import { User } from '../../database/entities/user.entity';
+import { Account } from '../../database/entities/account.entity';
 import { AccountProvider } from 'src/common/enums/account-provider.enum';
-import { Workspace } from '../database/entities/workspace.entity';
-import { Member } from '../database/entities/member.entity';
-import { Role } from '../database/entities/role.entity';
+import { Workspace } from '../../database/entities/workspace.entity';
+import { Member } from '../../database/entities/member.entity';
+import { Role } from '../../database/entities/role.entity';
 import { RoleName } from 'src/common/enums/role.enum';
 import { RegisterDto } from './dto/register.dto';
 import {
   BadRequestException,
   NotFoundException,
-} from '../common/exceptions/app.exception';
+} from '../../common/exceptions/app.exception';
 
 @Injectable()
 export class AuthService {

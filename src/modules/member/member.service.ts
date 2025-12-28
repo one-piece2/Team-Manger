@@ -1,14 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Member } from '../database/entities/member.entity';
-import { Workspace } from '../database/entities/workspace.entity';
-import { Role } from '../database/entities/role.entity';
+import { Member } from '../../database/entities/member.entity';
+import { Workspace } from '../../database/entities/workspace.entity';
+import { Role } from '../../database/entities/role.entity';
 import {
   NotFoundException,
   BadRequestException,
-} from '../common/exceptions/app.exception';
-import { RoleName } from '../common/enums/role.enum';
+} from '../../common/exceptions/app.exception';
+import { RoleName } from '../../common/enums/role.enum';
 
 @Injectable()
 export class MemberService {
