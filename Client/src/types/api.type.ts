@@ -129,3 +129,81 @@ export type AnalyticsResponseType = {
   };
 };
 
+
+
+//-----------------------项目----------------
+// 项目类型
+export type ProjectType = {
+  _id: string;
+  name: string;
+  emoji: string;
+  description: string;
+  workspace: string;
+  createdBy: {
+    _id: string;
+    name: string;
+    profilePicture: string;
+  };
+  createdAt: string;
+  updatedAt: string;
+};
+
+// 创建项目
+export type CreateProjectPayloadType = {
+  workspaceId: string;
+  data: {
+    emoji: string;
+    name: string;
+    description?: string;
+  };
+};
+// 项目响应
+export type ProjectResponseType = {
+  message: "Project created successfully";
+  project: ProjectType;
+};
+
+// 编辑项目
+export type EditProjectPayloadType = {
+  workspaceId: string;
+  projectId: string;
+  data: {
+  emoji: string;
+    name: string;
+    description: string;
+  };
+};
+
+
+
+//所有项目
+export type AllProjectPayloadType = {
+  workspaceId: string;
+  pageNumber?: number;
+  pageSize?: number;
+  keyword?: string;
+  //是否跳过
+  skip?: boolean;
+};
+
+export type AllProjectResponseType = {
+  message: string;
+  projects: ProjectType[];
+  pagination: PaginationType;
+};
+
+// 按 ID 获取项目
+export type ProjectByIdPayloadType = {
+  workspaceId: string;
+  projectId: string;
+};
+
+// 分页类型
+export type PaginationType = {
+  totalCount: number;
+  pageSize: number;
+  pageNumber: number;
+  totalPages: number;
+  skip: number;
+  limit: number;
+};

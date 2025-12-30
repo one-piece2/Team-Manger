@@ -10,6 +10,13 @@ import type{
   AllWorkspaceResponseType,
   EditWorkspaceType,
   AnalyticsResponseType,
+  CreateProjectPayloadType,
+  EditProjectPayloadType,
+  AllProjectPayloadType,
+  AllProjectResponseType,
+  ProjectByIdPayloadType,
+  ProjectResponseType,
+
 } from "@/types/api.type";
 
 // 登录
@@ -83,5 +90,72 @@ export const deleteWorkspaceMutationFn = async (
   workspaceId: string
 ): Promise<{ message: string; currentWorkspace: string }> => {
   const response = await API.delete(`/workspace/delete/${workspaceId}`);
+  return response.data;
+};
+
+
+//--------------PROJECT----------------
+// 创建项目
+export const createProjectMutationFn = async ({
+  workspaceId,
+  data,
+}: CreateProjectPayloadType): Promise<ProjectResponseType> => {
+  const response = await API.post(`/project/workspace/${workspaceId}/create`, data);
+  return response.data;
+};
+
+// 编辑项目
+export const editProjectMutationFn = async ({
+  projectId,
+  workspaceId,
+  data,
+}: EditProjectPayloadType): Promise<ProjectResponseType> => {
+  const response = await API.put(
+    `/project/${projectId}/workspace/${workspaceId}/update`,
+    data
+  );
+  return response.data;
+};
+
+// 获取工作空间所有项目
+export const getProjectsInWorkspaceQueryFn = async ({
+  workspaceId,
+  pageSize = 10,
+  pageNumber = 1,
+}: AllProjectPayloadType): Promise<AllProjectResponseType> => {
+  const response = await API.get(
+    `/project/workspace/${workspaceId}/all?pageSize=${pageSize}&pageNumber=${pageNumber}`
+  );
+  return response.data;
+};
+
+// 获取单个项目
+export const getProjectByIdQueryFn = async ({
+  workspaceId,
+  projectId,
+}: ProjectByIdPayloadType): Promise<ProjectResponseType> => {
+  const response = await API.get(`/project/${projectId}/workspace/${workspaceId}`);
+  return response.data;
+};
+
+// 获取项目分析数据
+export const getProjectAnalyticsQueryFn = async ({
+  workspaceId,
+  projectId,
+}: ProjectByIdPayloadType): Promise<AnalyticsResponseType> => {
+  const response = await API.get(
+    `/project/${projectId}/workspace/${workspaceId}/analytics`
+  );
+  return response.data;
+};
+
+// 删除项目
+export const deleteProjectMutationFn = async ({
+  workspaceId,
+  projectId,
+}: ProjectByIdPayloadType): Promise<{ message: string }> => {
+  const response = await API.delete(
+    `/project/${projectId}/workspace/${workspaceId}/delete`
+  );
   return response.data;
 };
