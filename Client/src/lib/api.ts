@@ -4,6 +4,7 @@ import type{
   LoginResponseType,
   registerType,
   CurrentUserResponseType,
+  WorkspaceByIdResponseType,
 } from "@/types/api.type";
 
 // 登录
@@ -27,3 +28,14 @@ export const getCurrentUserQueryFn =
     const response = await API.get(`/user/current`);
     return response.data;
   };
+
+
+
+  //--------------WORKSPACE----------------
+  //通过workspaceId获取工作空间
+  export const getWorkspaceByIdQueryFn = async (
+  workspaceId: string
+): Promise<WorkspaceByIdResponseType> => {
+  const response = await API.get(`/workspace/${workspaceId}`);
+  return response.data;
+};

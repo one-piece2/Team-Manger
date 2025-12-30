@@ -1,8 +1,8 @@
-// import {
-//   PermissionType,
-//   TaskPriorityEnumType,
-//   TaskStatusEnumType,
-// } from "@/constant";
+import type {
+  PermissionType,
+  TaskPriorityEnumType,
+  TaskStatusEnumType,
+} from "@/constant";
 
 // 登录类型
 export type loginType = { email: string; password: string };
@@ -48,3 +48,37 @@ export type CurrentUserResponseType = {
   message: string;
   user: UserType;
 };
+
+
+//----------------Workspace----------------
+//工作空间类型
+export type WorkspaceType = {
+  _id: string;
+  name: string;
+  description?: string;
+  owner: string;
+  inviteCode: string;
+};
+
+
+//getWorkspaceByIdQueryFn接口返回类型
+export type WorkspaceByIdResponseType = {
+  message: string;
+  workspace: WorkspaceWithMembersType;
+};
+
+export type WorkspaceWithMembersType = WorkspaceType & {
+  members: {
+    _id: string;
+    userId: string;
+    workspaceId: string;
+    role: {
+      _id: string;
+      name: string;
+      permissions: PermissionType[];
+    };
+    joinedAt: string;
+    createdAt: string;
+  }[];
+};
+
