@@ -48,7 +48,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     refetch: refetchWorkspace,
   } = useGetWorkspaceQuery(workspaceId);
 
-  
+  //获取当前workspace
   const workspace = workspaceData?.workspace;
 
   useEffect(() => {

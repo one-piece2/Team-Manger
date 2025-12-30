@@ -59,14 +59,17 @@ export type WorkspaceType = {
   owner: string;
   inviteCode: string;
 };
-
-
-//getWorkspaceByIdQueryFn接口返回类型
-export type WorkspaceByIdResponseType = {
-  message: string;
-  workspace: WorkspaceWithMembersType;
+// 角色类型
+export type RoleType = {
+  _id: string;
+  name: string;
+  permissions: PermissionType[];
 };
 
+
+
+
+//带成员的工作空间类型
 export type WorkspaceWithMembersType = WorkspaceType & {
   members: {
     _id: string;
@@ -80,5 +83,49 @@ export type WorkspaceWithMembersType = WorkspaceType & {
     joinedAt: string;
     createdAt: string;
   }[];
+};
+
+// 创建工作空间
+export type CreateWorkspaceType = {
+  name: string;
+  description?: string;
+};
+// 创建工作空间响应类型
+export type CreateWorkspaceResponseType = {
+  message: string;
+  workspace: WorkspaceType;
+};
+
+
+// 编辑工作空间
+export type EditWorkspaceType = {
+  workspaceId: string;
+  data: {
+    name: string;
+    description?: string;
+  };
+};
+
+
+// 获取所有工作空间
+export type AllWorkspaceResponseType = {
+  message: string;
+  workspaces: WorkspaceType[];
+};
+
+// 获取单个工作空间（包含所有成员信息）
+export type WorkspaceByIdResponseType = {
+  message: string;
+  workspace: WorkspaceWithMembersType;
+};
+
+// 分析数据
+export type AnalyticsResponseType = {
+  message: string;
+  analytics: {
+    totalTasks: number;
+    overdueTasks: number;
+    completedTasks: number;
+  };
 };
 

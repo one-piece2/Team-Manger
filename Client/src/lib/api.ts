@@ -5,6 +5,11 @@ import type{
   registerType,
   CurrentUserResponseType,
   WorkspaceByIdResponseType,
+    CreateWorkspaceType,
+  CreateWorkspaceResponseType,
+  AllWorkspaceResponseType,
+  EditWorkspaceType,
+  AnalyticsResponseType,
 } from "@/types/api.type";
 
 // 登录
@@ -37,5 +42,46 @@ export const getCurrentUserQueryFn =
   workspaceId: string
 ): Promise<WorkspaceByIdResponseType> => {
   const response = await API.get(`/workspace/${workspaceId}`);
+  return response.data;
+};
+
+// 创建工作空间
+export const createWorkspaceMutationFn = async (
+  data: CreateWorkspaceType
+): Promise<CreateWorkspaceResponseType> => {
+  const response = await API.post(`/workspace/create/new`, data);
+  return response.data;
+};
+
+
+// 编辑工作空间
+export const editWorkspaceMutationFn = async ({
+  workspaceId,
+  data,
+}: EditWorkspaceType) => {
+  const response = await API.put(`/workspace/update/${workspaceId}`, data);
+  return response.data;
+};
+
+// 获取用户所有工作空间
+export const getAllWorkspacesUserIsMemberQueryFn =
+  async (): Promise<AllWorkspaceResponseType> => {
+    const response = await API.get(`/workspace/all`);
+    return response.data;
+  };
+
+// 获取工作空间分析数据
+export const getWorkspaceAnalyticsQueryFn = async (
+  workspaceId: string
+): Promise<AnalyticsResponseType> => {
+  const response = await API.get(`/workspace/analytics/${workspaceId}`);
+  return response.data;
+};
+
+// 删除工作空间
+export const deleteWorkspaceMutationFn = async (
+  workspaceId: string
+): Promise<{ message: string; currentWorkspace: string }> => {
+  const response = await API.delete(`/workspace/delete/${workspaceId}`);
   return response.data;
 };

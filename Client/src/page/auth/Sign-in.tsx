@@ -26,7 +26,8 @@ import { loginMutationFn } from "@/lib/api";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner"
 import { useStore } from "@/store/store";
-
+import {WorkspaceSwitcher} from "@/components/asidebar/workspace-switcher";
+import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
 const SignIn = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -77,8 +78,12 @@ const SignIn = () => {
   };
 
   return (
+   
  <div className="flex min-h-svh flex-col items-center justify-center gap-6 bg-muted p-6 md:p-10 dark:bg-slate-950 relative overflow-hidden">
       {/* Background Decorative Elements */}
+      <SidebarProvider>
+       <WorkspaceSwitcher />
+       </SidebarProvider>
       <div className="absolute top-[-10%] left-[-10%] h-[500px] w-[500px] rounded-full bg-blue-100/50 blur-[100px] dark:bg-blue-900/20 pointer-events-none" />
       <div className="absolute bottom-[-10%] right-[-10%] h-[500px] w-[500px] rounded-full bg-indigo-100/50 blur-[100px] dark:bg-indigo-900/20 pointer-events-none" />
 
