@@ -10,7 +10,7 @@ const AuthRoute = () => {
 
   //判断是否是登录路由
   const isLoginRoute = isAuthRoute(location.pathname);
-
+   
   if (isLoading && !isLoginRoute) return <DashboardSkeleton />;
 //如果用户没有登录 则渲染登录页面
   if (!user) return <Outlet />;
