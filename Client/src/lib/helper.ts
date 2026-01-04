@@ -70,6 +70,40 @@ export const getAvatarFallbackText = (name: string) => {
   return initials || "NA";
 };
 
+//将任务状态映射到 Badge 变体
+export const getStatusBadgeVariant = (status: string): "default" | "secondary" | "destructive" | "outline" => {
+  switch (status) {
+    case "DONE":
+      return "default";
+    case "IN_REVIEW":
+      return "secondary";
+    case "IN_PROGRESS":
+      return "outline";
+    case "TODO":
+      return "secondary";
+    case "BACKLOG":
+      return "outline";
+    default:
+      return "outline";
+  }
+};
+
+//将任务优先级映射到 Badge 变体
+export const getPriorityBadgeVariant = (priority: string): "default" | "secondary" | "destructive" | "outline" => {
+  switch (priority) {
+    case "URGENT":
+      return "destructive";
+    case "HIGH":
+      return "default";
+    case "MEDIUM":
+      return "secondary";
+    case "LOW":
+      return "outline";
+    default:
+      return "outline";
+  }
+};
+
 // export const getRandomColor = (): string => {
 //   const colors = [
 //     "bg-red-500 text-white",
