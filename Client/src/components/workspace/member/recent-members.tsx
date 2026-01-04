@@ -19,7 +19,7 @@ const RecentMembers = () => {
 
       <ul role="list" className="space-y-3">
         {members.map((member, index) => {
-          const name = member.userId?.name;
+          const name = member.user?.name;
           const initials = getAvatarFallbackText(name);
           const avatarColor = getAvatarColor(name);
           return (
@@ -32,7 +32,7 @@ const RecentMembers = () => {
               <div className="flex-shrink-0">
                 <Avatar className="h-9 w-9 sm:flex">
                   <AvatarImage
-                    src={member.userId.profilePicture || ""}
+                    src={member.user.profilePicture || ""}
                     alt={name}
                   />
                   <AvatarFallback className={avatarColor}>
@@ -44,7 +44,7 @@ const RecentMembers = () => {
               {/* Member Details */}
               <div className="flex flex-col">
                 <p className="text-sm font-medium text-gray-900">
-                  {member.userId.name}
+                  {member.user.name}
                 </p>
                 <p className="text-sm text-gray-500">{member.role.name}</p>
               </div>

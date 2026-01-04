@@ -1,15 +1,13 @@
 import type{ Column, ColumnDef, Row } from "@tanstack/react-table";
 //日期格式化
 import { format } from "date-fns";
-
+import {getPriorityBadgeVariant, getStatusBadgeVariant} from "@/lib/helper";
 import { DataTableColumnHeader } from "./table-column-header";
 import { DataTableRowActions } from "./table-row-actions";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
 import {
-  TaskPriorityEnum,
   type TaskPriorityEnumType,
-  TaskStatusEnum,
   type TaskStatusEnumType,
 } from "@/constant";
 import {
@@ -164,10 +162,10 @@ export const getColumns = (projectId?: string): ColumnDef<TaskType>[] => {
         return (
           <div className="flex lg:w-[120px] items-center">
             <Badge
-              variant={TaskStatusEnum[statusKey] as any}
-              className="flex w-auto p-1 px-2 gap-1 font-medium shadow-sm uppercase border-0"
+              variant={getStatusBadgeVariant(statusKey)}
+              className="uppercase"
             >
-              <Icon className="h-4 w-4 rounded-full text-inherit" />
+              <Icon className="h-3.5 w-3.5" />
               <span>{status.label}</span>
             </Badge>
           </div>
@@ -200,10 +198,10 @@ export const getColumns = (projectId?: string): ColumnDef<TaskType>[] => {
         return (
           <div className="flex items-center">
             <Badge
-              variant={TaskPriorityEnum[statusKey]}
-              className="flex lg:w-[110px] p-1 gap-1 !bg-transparent font-medium !shadow-none uppercase border-0"
+              variant={getPriorityBadgeVariant(statusKey)}
+              className="uppercase"
             >
-              <Icon className="h-4 w-4 rounded-full text-inherit" />
+              <Icon className="h-3.5 w-3.5" />
               <span>{priority.label}</span>
             </Badge>
           </div>

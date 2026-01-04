@@ -24,7 +24,7 @@ import { Permission } from '../../common/enums/role.enum';
 import { User } from '../../database/entities/user.entity';
 import { RoleGuard } from '../../common/guards/role.guard';
 import { MemberRoleInterceptor } from '../../common/interceptors/member-role.interceptor';
-
+import { MemberRoleGuard } from '../../common/guards/member-role.guard';
 @Controller('project')
 export class ProjectController {
   constructor(
@@ -34,8 +34,7 @@ export class ProjectController {
   // 创建项目 POST /api/project/workspace/:workspaceId/create
   @Post('workspace/:workspaceId/create')
   @HttpCode(HttpStatus.CREATED)
-  @UseInterceptors(MemberRoleInterceptor)
-  @UseGuards(RoleGuard)
+  @UseGuards(MemberRoleGuard, RoleGuard)
   @RequirePermissions(Permission.CREATE_PROJECT)
   async createProject(
     @CurrentUser() user: User,
@@ -57,8 +56,7 @@ export class ProjectController {
   // 获取工作空间中的所有项目 GET /api/project/workspace/:workspaceId/all
   @Get('workspace/:workspaceId/all')
   @HttpCode(HttpStatus.OK)
-  @UseInterceptors(MemberRoleInterceptor)
-  @UseGuards(RoleGuard)
+  @UseGuards(MemberRoleGuard, RoleGuard)
   @RequirePermissions(Permission.VIEW_ONLY)
   async getAllProjectsInWorkspace(
     @CurrentUser() user: User,
@@ -92,8 +90,7 @@ export class ProjectController {
   // 获取项目分析数据 GET /api/project/:id/workspace/:workspaceId/analytics
   @Get(':id/workspace/:workspaceId/analytics')
   @HttpCode(HttpStatus.OK)
-  @UseInterceptors(MemberRoleInterceptor)
-  @UseGuards(RoleGuard)
+   @UseGuards(MemberRoleGuard, RoleGuard)
   @RequirePermissions(Permission.VIEW_ONLY)
   async getProjectAnalytics(
     @CurrentUser() user: User,
@@ -114,8 +111,7 @@ export class ProjectController {
   // 获取项目详情 GET /api/project/:id/workspace/:workspaceId
   @Get(':id/workspace/:workspaceId')
   @HttpCode(HttpStatus.OK)
-  @UseInterceptors(MemberRoleInterceptor)
-  @UseGuards(RoleGuard)
+ @UseGuards(MemberRoleGuard, RoleGuard)
   @RequirePermissions(Permission.VIEW_ONLY)
   async getProjectById(
     @CurrentUser() user: User,
@@ -136,8 +132,7 @@ export class ProjectController {
   // 更新项目 PUT /api/project/:id/workspace/:workspaceId/update
   @Put(':id/workspace/:workspaceId/update')
   @HttpCode(HttpStatus.OK)
-  @UseInterceptors(MemberRoleInterceptor)
-  @UseGuards(RoleGuard)
+ @UseGuards(MemberRoleGuard, RoleGuard)
   @RequirePermissions(Permission.EDIT_PROJECT)
   async updateProject(
     @CurrentUser() user: User,
@@ -160,8 +155,7 @@ export class ProjectController {
   // 删除项目 DELETE /api/project/:id/workspace/:workspaceId/delete
   @Delete(':id/workspace/:workspaceId/delete')
   @HttpCode(HttpStatus.OK)
-  @UseInterceptors(MemberRoleInterceptor)
-  @UseGuards(RoleGuard)
+ @UseGuards(MemberRoleGuard, RoleGuard)
   @RequirePermissions(Permission.DELETE_PROJECT)
   async deleteProject(
     @CurrentUser() user: User,

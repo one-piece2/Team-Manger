@@ -10,9 +10,9 @@ export const usePermissions = (
   const [permissions, setPermissions] = useState<PermissionType[]>([]);
 
   useEffect(() => {
-    if (user && workspace) {
+    if (user && workspace && workspace.members) {
       const member = workspace.members.find(
-        (member) => member.userId === user._id
+        (member) => member.user.id === user.id
       );
       if (member) {
         setPermissions(member.role.permissions || []);

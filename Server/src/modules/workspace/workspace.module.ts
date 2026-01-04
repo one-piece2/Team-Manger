@@ -3,6 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { WorkspaceService } from './workspace.service';
 import { WorkspaceController } from './workspace.controller';
 import { MemberRoleInterceptor } from '../../common/interceptors/member-role.interceptor';
+import { MemberRoleGuard } from '../../common/guards/member-role.guard';
 import { Workspace } from '../../database/entities/workspace.entity';
 import { Member } from '../../database/entities/member.entity';
 import { Role } from '../../database/entities/role.entity';
@@ -14,7 +15,7 @@ import { Task } from '../../database/entities/task.entity';
     TypeOrmModule.forFeature([Workspace, Member, Role, User, Task]),
   ],
   controllers: [WorkspaceController],
-  providers: [WorkspaceService, MemberRoleInterceptor],
+  providers: [WorkspaceService, MemberRoleInterceptor, MemberRoleGuard],
   exports: [WorkspaceService],
 })
 export class WorkspaceModule {}

@@ -15,7 +15,7 @@ const AuthRoute = () => {
 //如果用户没有登录 则渲染登录页面
   if (!user) return <Outlet />;
 //如果用户登录了 则重定向到工作区页面
-  return <Navigate to={`/workspace/${user?.currentWorkspace?._id}`} replace />;
+  return <Navigate to={`/workspace/${user?.currentWorkspace.id}`} replace />;
 };
 
 export default AuthRoute;

@@ -22,6 +22,7 @@ import { RequirePermissions } from '../../common/decorators/permissions.decorato
 import { Permission } from '../../common/enums/role.enum';
 import { User } from '../../database/entities/user.entity';
 import { RoleGuard } from '../../common/guards/role.guard';
+import { MemberRoleGuard } from '../../common/guards/member-role.guard';
 import { MemberRoleInterceptor } from '../../common/interceptors/member-role.interceptor';
 
 @Controller('workspace')
@@ -64,8 +65,7 @@ export class WorkspaceController {
   // 获取工作空间成员 GET /api/workspace/members/:id
   @Get('members/:id')
   @HttpCode(HttpStatus.OK)
-  @UseInterceptors(MemberRoleInterceptor)
-  @UseGuards(RoleGuard)
+  @UseGuards(MemberRoleGuard, RoleGuard)
   @RequirePermissions(Permission.VIEW_ONLY)
   async getWorkspaceMembers(
     @CurrentUser() user: User,
@@ -84,8 +84,7 @@ export class WorkspaceController {
   // 获取工作空间分析数据 GET /api/workspace/analytics/:id
   @Get('analytics/:id')
   @HttpCode(HttpStatus.OK)
-  @UseInterceptors(MemberRoleInterceptor)
-  @UseGuards(RoleGuard)
+  @UseGuards(MemberRoleGuard, RoleGuard)
   @RequirePermissions(Permission.VIEW_ONLY)
   async getWorkspaceAnalytics(
     @CurrentUser() user: User,
@@ -103,27 +102,28 @@ export class WorkspaceController {
   // 获取工作空间详情 GET /api/workspace/:id
   @Get(':id')
   @HttpCode(HttpStatus.OK)
-  @UseInterceptors(MemberRoleInterceptor)
-  @UseGuards(RoleGuard)
+  @UseGuards(MemberRoleGuard, RoleGuard)
   @RequirePermissions(Permission.VIEW_ONLY)
   async getWorkspaceById(
     @CurrentUser() user: User,
     @Param('id', ParseUUIDPipe) workspaceId: string,
   ) {
-    const { workspace } =
+    const { workspace, members } =
       await this.workspaceService.getWorkspaceById(workspaceId);
 
     return {
       message: 'Workspace fetched successfully',
-      workspace,
+      workspace: {
+        ...workspace,
+        members,
+      },
     };
   }
 
   // 更改成员角色 PUT /api/workspace/change/member/role/:id
   @Put('change/member/role/:id')
   @HttpCode(HttpStatus.OK)
-  @UseInterceptors(MemberRoleInterceptor)
-  @UseGuards(RoleGuard)
+  @UseGuards(MemberRoleGuard, RoleGuard)
   @RequirePermissions(Permission.CHANGE_MEMBER_ROLE)
   async changeMemberRole(
     @CurrentUser() user: User,
@@ -145,8 +145,7 @@ export class WorkspaceController {
   // 更新工作空间 PUT /api/workspace/update/:id
   @Put('update/:id')
   @HttpCode(HttpStatus.OK)
-  @UseInterceptors(MemberRoleInterceptor)
-  @UseGuards(RoleGuard)
+  @UseGuards(MemberRoleGuard, RoleGuard)
   @RequirePermissions(Permission.EDIT_WORKSPACE)
   async updateWorkspace(
     @CurrentUser() user: User,
@@ -167,8 +166,7 @@ export class WorkspaceController {
   // 删除工作空间 DELETE /api/workspace/delete/:id
   @Delete('delete/:id')
   @HttpCode(HttpStatus.OK)
-  @UseInterceptors(MemberRoleInterceptor)
-  @UseGuards(RoleGuard)
+  @UseGuards(MemberRoleGuard, RoleGuard)
   @RequirePermissions(Permission.DELETE_WORKSPACE)
   async deleteWorkspace(
     @CurrentUser() user: User,

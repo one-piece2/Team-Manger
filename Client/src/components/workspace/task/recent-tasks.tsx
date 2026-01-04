@@ -48,7 +48,7 @@ const RecentTasks = () => {
           const avatarColor = getAvatarColor(name);
           return (
             <li
-              key={task._id}
+              key={task.id}
               className="p-4 flex items-center justify-between hover:bg-gray-50 transition-colors"
             >
               {/* Task Info */}
@@ -68,7 +68,7 @@ const RecentTasks = () => {
               <div className="text-sm font-medium ">
                 <Badge
                   variant={getStatusBadgeVariant(task.status)}
-                  className="flex w-auto p-1 px-2 gap-1 font-medium shadow-sm uppercase border-0"
+                  className="uppercase"
                 >
                   <span>{transformStatusEnum(task.status)}</span>
                 </Badge>
@@ -78,7 +78,7 @@ const RecentTasks = () => {
               <div className="text-sm ml-2">
                 <Badge
                   variant={getPriorityBadgeVariant(task.priority)}
-                  className="flex w-auto p-1 px-2 gap-1 font-medium shadow-sm uppercase border-0"
+                  className="uppercase"
                 >
                   <span>{transformStatusEnum(task.priority)}</span>
                 </Badge>

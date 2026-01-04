@@ -9,13 +9,13 @@ export type loginType = { email: string; password: string };
 
 export type LoginResponseType = {
   message: string;
-  access_token: string;
+  accessToken: string;
   user: {
-    _id: string;
+    id: string;
     name: string;
     email: string;
     profilePicture: string | null;
-    currentWorkspace: string;
+    currentWorkspaceId: string;
   };
 };
 
@@ -28,7 +28,7 @@ export type registerType = {
 
 // 用户类型
 export type UserType = {
-  _id: string;
+  id: string;
   name: string;
   email: string;
   profilePicture: string | null;
@@ -37,7 +37,7 @@ export type UserType = {
   createdAt: Date;
   updatedAt: Date;
   currentWorkspace: {
-    _id: string;
+    id: string;
     name: string;
     owner: string;
     inviteCode: string;
@@ -53,7 +53,7 @@ export type CurrentUserResponseType = {
 //----------------Workspace----------------
 //工作空间类型
 export type WorkspaceType = {
-  _id: string;
+  id: string;
   name: string;
   description?: string;
   owner: string;
@@ -61,7 +61,7 @@ export type WorkspaceType = {
 };
 // 角色类型
 export type RoleType = {
-  _id: string;
+  id: string;
   name: string;
   permissions: PermissionType[];
 };
@@ -72,11 +72,16 @@ export type RoleType = {
 //带成员的工作空间类型
 export type WorkspaceWithMembersType = WorkspaceType & {
   members: {
-    _id: string;
-    userId: string;
+    id: string;
+    user: {
+      id: string;
+      name: string;
+      email: string;
+      profilePicture: string | null;
+    };
     workspaceId: string;
     role: {
-      _id: string;
+      id: string;
       name: string;
       permissions: PermissionType[];
     };
@@ -134,13 +139,13 @@ export type AnalyticsResponseType = {
 //-----------------------项目----------------
 // 项目类型
 export type ProjectType = {
-  _id: string;
+  id: string;
   name: string;
   emoji: string;
   description: string;
   workspace: string;
   createdBy: {
-    _id: string;
+    id: string;
     name: string;
     profilePicture: string;
   };
@@ -253,18 +258,18 @@ export type AllTaskPayloadType = {
 
 // 任务类型
 export type TaskType = {
-  _id: string;
+  id: string;
   title: string;
   description?: string;
   project?: {
-    _id: string;
+    id: string;
     emoji: string;
     name: string;
   };
   priority: TaskPriorityEnumType;
   status: TaskStatusEnumType;
   assignedTo: {
-    _id: string;
+    id: string;
     name: string;
     profilePicture: string | null;
   } | null;
@@ -285,16 +290,16 @@ export type AllTaskResponseType = {
 
 //-------------成员----------------
 export type MemberType = {
-  _id: string;
-  userId: {
-    _id: string;
+  id: string;
+  user: {
+    id: string;
     name: string;
     email: string;
     profilePicture: string | null;
   };
   workspaceId: string;
   role: {
-    _id: string;
+    id: string;
     name: string;
   };
   joinedAt: Date;

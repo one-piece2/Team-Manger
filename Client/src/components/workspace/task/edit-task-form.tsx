@@ -48,8 +48,8 @@ export default function EditTaskForm({ task, onClose }: { task: TaskType; onClos
 
   // 成员下拉选项
   const membersOptions = members.map((member: any) => ({
-    label: member.userId?.name || "Unknown",
-    value: member.userId?._id || "",
+    label: member.user?.name || "Unknown",
+    value: member.user?.id || "",
   }));
 
   // 状态和优先级选项
@@ -79,7 +79,7 @@ export default function EditTaskForm({ task, onClose }: { task: TaskType; onClos
       description: task?.description ?? "",
       status: task?.status ?? "TODO",
       priority: task?.priority ?? "MEDIUM",
-      assignedTo: task.assignedTo?._id ?? "",
+      assignedTo: task.assignedTo?.id ?? "",
       dueDate: task?.dueDate ? new Date(task.dueDate) : new Date(),
     },
   });
@@ -89,8 +89,8 @@ export default function EditTaskForm({ task, onClose }: { task: TaskType; onClos
 
     const payload = {
       workspaceId,
-      projectId: task.project?._id ?? "",
-      taskId: task._id,
+      projectId: task.project?.id ?? "",
+      taskId: task.id,
       data: {
         ...values,
         dueDate: values.dueDate.toISOString(),

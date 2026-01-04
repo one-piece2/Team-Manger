@@ -71,7 +71,7 @@ const AllMembers = () => {
         <Loader className="w-8 h-8 animate-spin place-self-center flex" />
       ) : null}
       {members?.map((member: MemberType) => {
-        const name = member.userId?.name;
+        const name = member.user?.name;
         const initials = getAvatarFallbackText(name);
         const avatarColor = getAvatarColor(name);
 
@@ -80,7 +80,7 @@ const AllMembers = () => {
             <div className="flex items-center space-x-4">
               <Avatar className="h-8 w-8">
                 <AvatarImage
-                  src={member.userId?.profilePicture || ""}
+                  src={member.user?.profilePicture || ""}
                   alt="Image"
                 />
                 <AvatarFallback className={avatarColor}>
@@ -90,7 +90,7 @@ const AllMembers = () => {
               <div>
                 <p className="text-sm font-medium leading-none">{name}</p>
                 <p className="text-sm text-muted-foreground">
-                  {member.userId.email}
+                  {member.user.email}
                 </p>
               </div>
             </div>
@@ -103,12 +103,12 @@ const AllMembers = () => {
                     disabled={
                       isLoading ||
                       !canChangeMemberRole ||
-                      member.userId._id === user?._id
+                      member.user.id === user?.id
                     }
                     className="ml-auto min-w-24 capitalize disabled:opacity-95 disabled:pointer-events-none"
                   >
                     {member.role.name?.toLowerCase()}{" "}
-                    {canChangeMemberRole && member.userId._id !== user?._id && (
+                    {canChangeMemberRole && member.user.id !== user?.id && (
                       <ChevronDown className="text-muted-foreground" />
                     )}
                   </Button>
@@ -134,11 +134,11 @@ const AllMembers = () => {
                                   role.name !== "GUEST" && (
                                     <CommandItem
                                       disabled={isLoading}
-                                      key={role._id}
+                                      key={role.id}
                                       onSelect={() => {
                                         handleSelect(
-                                          role._id,
-                                          member.userId._id
+                                          role.id,
+                                          member.user.id
                                         );
                                       }}
                                       className="disabled:pointer-events-none gap-1 mb-1 flex flex-col items-start px-4 py-1 cursor-pointer"

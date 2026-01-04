@@ -38,25 +38,38 @@ export const formatStatusToEnum = (status: string): string => {
 };
 
 //根据用户名生成一致的头像背景色
-export const getAvatarColor = (initials: string): string => {
-  const colors = [
-    "bg-red-500 text-white",
-    "bg-blue-500 text-white",
-    "bg-green-500 text-white",
-    "bg-yellow-500 text-black",
-    "bg-purple-500 text-white",
-    "bg-pink-500 text-white",
-    "bg-teal-500 text-white",
-    "bg-orange-500 text-black",
-    "bg-gray-500 text-white",
-  ];
-
-
-  const hash = initials
+export const getAvatarColor = (name: string): string => {
+  if (!name) return "bg-gray-500 text-white";
+  
+  const hash = name
     .split("")
     .reduce((acc, char) => acc + char.charCodeAt(0), 0);
-
-  return colors[hash % colors.length];
+  
+  const index = hash % 9;
+  
+  // 使用 switch 语句确保 Tailwind 可以识别所有类名
+  switch (index) {
+    case 0:
+      return "bg-red-500 text-white";
+    case 1:
+      return "bg-blue-500 text-white";
+    case 2:
+      return "bg-green-500 text-white";
+    case 3:
+      return "bg-yellow-500 text-black";
+    case 4:
+      return "bg-purple-500 text-white";
+    case 5:
+      return "bg-pink-500 text-white";
+    case 6:
+      return "bg-teal-500 text-white";
+    case 7:
+      return "bg-orange-500 text-black";
+    case 8:
+      return "bg-gray-500 text-white";
+    default:
+      return "bg-gray-500 text-white";
+  }
 };
 
 //获取头像缩写
@@ -71,34 +84,34 @@ export const getAvatarFallbackText = (name: string) => {
 };
 
 //将任务状态映射到 Badge 变体
-export const getStatusBadgeVariant = (status: string): "default" | "secondary" | "destructive" | "outline" => {
+export const getStatusBadgeVariant = (status: string): "done" | "inProgress" | "todo" | "inReview" | "backlog" | "outline" => {
   switch (status) {
     case "DONE":
-      return "default";
+      return "done";
     case "IN_REVIEW":
-      return "secondary";
+      return "inReview";
     case "IN_PROGRESS":
-      return "outline";
+      return "inProgress";
     case "TODO":
-      return "secondary";
+      return "todo";
     case "BACKLOG":
-      return "outline";
+      return "backlog";
     default:
       return "outline";
   }
 };
 
 //将任务优先级映射到 Badge 变体
-export const getPriorityBadgeVariant = (priority: string): "default" | "secondary" | "destructive" | "outline" => {
+export const getPriorityBadgeVariant = (priority: string): "urgent" | "high" | "medium" | "low" | "outline" => {
   switch (priority) {
     case "URGENT":
-      return "destructive";
+      return "urgent";
     case "HIGH":
-      return "default";
+      return "high";
     case "MEDIUM":
-      return "secondary";
+      return "medium";
     case "LOW":
-      return "outline";
+      return "low";
     default:
       return "outline";
   }

@@ -24,7 +24,7 @@ import useCreateWorkspaceDialog from "@/hooks/use-create-workspace-dialog";
 import { getAllWorkspacesUserIsMemberQueryFn } from "@/lib/api";
 
 type WorkspaceType = {
-  _id: string;
+  id: string;
   name: string;
 };
 
@@ -48,12 +48,12 @@ export function WorkspaceSwitcher() {
   React.useEffect(() => {
     if (workspaces?.length) {
       const workspace = workspaceId
-        ? workspaces.find((ws) => ws._id === workspaceId)
+        ? workspaces.find((ws) => ws.id === workspaceId)
         : workspaces[0];
 
       if (workspace) {
         setActiveWorkspace(workspace);
-        if (!workspaceId) navigate(`/workspace/${workspace._id}`);
+        if (!workspaceId) navigate(`/workspace/${workspace.id}`);
       }
     }
   }, [workspaceId, workspaces, navigate]);
@@ -61,7 +61,7 @@ export function WorkspaceSwitcher() {
   //选择工作空间的事件
   const onSelect = (workspace: WorkspaceType) => {
     setActiveWorkspace(workspace);
-    navigate(`/workspace/${workspace._id}`);
+    navigate(`/workspace/${workspace.id}`);
   };
 
   return (
@@ -119,7 +119,7 @@ export function WorkspaceSwitcher() {
               {isPending ? <Loader className=" w-5 h-5 animate-spin" /> : null}
               {workspaces?.map((workspace) => (
                 <DropdownMenuItem
-                  key={workspace._id}
+                  key={workspace.id}
                   onClick={() => onSelect(workspace)}
                   className="gap-2 p-2 !cursor-pointer"
                 >
@@ -128,7 +128,7 @@ export function WorkspaceSwitcher() {
                   </div>
                   {workspace.name}
 
-                  {workspace._id === workspaceId && (
+                  {workspace.id === workspaceId && (
                     <DropdownMenuShortcut className="tracking-normal !opacity-100">
                       <Check className="w-4 h-4" />
                     </DropdownMenuShortcut>
