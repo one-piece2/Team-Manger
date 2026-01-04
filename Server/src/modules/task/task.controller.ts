@@ -25,6 +25,7 @@ import { User } from '../../database/entities/user.entity';
 import { Task } from '../../database/entities/task.entity';
 import { RoleGuard } from '../../common/guards/role.guard';
 import { MemberRoleInterceptor } from '../../common/interceptors/member-role.interceptor';
+import { MemberRoleGuard } from '../../common/guards/member-role.guard';
 
 @Controller('task')
 export class TaskController {
@@ -35,8 +36,7 @@ export class TaskController {
   //创建任务  POST /api/task/project/:projectId/workspace/:workspaceId/create
   @Post('project/:projectId/workspace/:workspaceId/create')
   @HttpCode(HttpStatus.OK)
-  @UseInterceptors(MemberRoleInterceptor)
-  @UseGuards(RoleGuard)
+  @UseGuards(MemberRoleGuard, RoleGuard)
   @RequirePermissions(Permission.CREATE_TASK)
   async createTask(
     @CurrentUser() user: User,
@@ -60,8 +60,7 @@ export class TaskController {
   //更新任务  PUT /api/task/:id/project/:projectId/workspace/:workspaceId/update
   @Put(':id/project/:projectId/workspace/:workspaceId/update')
   @HttpCode(HttpStatus.OK)
-  @UseInterceptors(MemberRoleInterceptor)
-  @UseGuards(RoleGuard)
+  @UseGuards(MemberRoleGuard, RoleGuard)
   @RequirePermissions(Permission.EDIT_TASK)
   async updateTask(
     @CurrentUser() user: User,
@@ -86,8 +85,7 @@ export class TaskController {
   //获取所有任务 GET /api/task/workspace/:workspaceId/all
   @Get('workspace/:workspaceId/all')
   @HttpCode(HttpStatus.OK)
-  @UseInterceptors(MemberRoleInterceptor)
-  @UseGuards(RoleGuard)
+  @UseGuards(MemberRoleGuard, RoleGuard)
   @RequirePermissions(Permission.VIEW_ONLY)
   async getAllTasks(
     @CurrentUser() user: User,
@@ -115,8 +113,7 @@ export class TaskController {
   //获取任务详情 GET /api/task/:id/project/:projectId/workspace/:workspaceId
   @Get(':id/project/:projectId/workspace/:workspaceId')
   @HttpCode(HttpStatus.OK)
-  @UseInterceptors(MemberRoleInterceptor)
-  @UseGuards(RoleGuard)
+  @UseGuards(MemberRoleGuard, RoleGuard)
   @RequirePermissions(Permission.VIEW_ONLY)
   async getTaskById(
     @CurrentUser() user: User,
@@ -139,8 +136,7 @@ export class TaskController {
   //删除任务 DELETE /api/task/:id/workspace/:workspaceId/delete
   @Delete(':id/workspace/:workspaceId/delete')
   @HttpCode(HttpStatus.OK)
-  @UseInterceptors(MemberRoleInterceptor)
-  @UseGuards(RoleGuard)
+  @UseGuards(MemberRoleGuard, RoleGuard)
   @RequirePermissions(Permission.DELETE_TASK)
   async deleteTask(
     @CurrentUser() user: User,

@@ -74,7 +74,7 @@ export default function CreateProjectForm({
         });
 
         const project = data.project;
-        navigate(`/workspace/${workspaceId}/project/${project._id}`);
+        navigate(`/workspace/${workspaceId}/project/${project.id}`);
         setTimeout(() => onClose(), 500);
       },
       onError: (error) => {

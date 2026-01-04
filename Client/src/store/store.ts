@@ -4,11 +4,11 @@ import { devtools, persist, createJSONStorage } from "zustand/middleware";
 import createSelectors from "./selectors";
 
 type UserType = {
-    _id: string;
+    id: string;
     name: string;
     email: string;
     profilePicture: string | null;
-    currentWorkspace: string;
+    currentWorkspaceId: string;
 };
 
 type AuthState = {

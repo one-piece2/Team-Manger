@@ -80,7 +80,7 @@ export function NavProjects() {
     mutate(
       {
         workspaceId,
-        projectId: context?._id,
+        projectId: context?.id,
       },
       {
         onSuccess: () => {
@@ -141,9 +141,9 @@ export function NavProjects() {
             </div>
           ) : (
             projects?.map((item) => {
-              const projectUrl = `/workspace/${workspaceId}/project/${item._id}`;
+              const projectUrl = `/workspace/${workspaceId}/project/${item.id}`;
               return (
-                <SidebarMenuItem key={item._id}>
+                <SidebarMenuItem key={item.id}>
                   <SidebarMenuButton asChild isActive={projectUrl === pathname}>
                     <Link to={projectUrl}>
                       <span className="rounded-full border">{item.emoji}</span>

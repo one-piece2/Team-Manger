@@ -74,26 +74,26 @@ export default function CreateTaskForm(props: {
           <span>{project.name}</span>
         </div>
       ),
-      value: project._id,
+      value: project.id,
     };
   });
 
   // 渲染 选择成员
   const membersOptions = members.map((member: any) => {
-    const name = member.userId?.name || "Unknown";
+    const name = member.user?.name || "Unknown";
     const initials = getAvatarFallbackText(name);
     const avatarColor = getAvatarColor(name);
     return {
       label: (
         <div className="flex items-center space-x-2">
           <Avatar className="h-7 w-7">
-            <AvatarImage src={member.userId?.profilePicture || ""} alt={name} />
+            <AvatarImage src={member.user?.profilePicture || ""} alt={name} />
             <AvatarFallback className={avatarColor}>{initials}</AvatarFallback>
           </Avatar>
           <span>{name}</span>
         </div>
       ),
-      value: member.userId._id,
+      value: member.user.id,
     };
   });
 
@@ -150,7 +150,11 @@ export default function CreateTaskForm(props: {
       workspaceId,
       projectId: values.projectId,
       data: {
-        ...values,
+        title: values.title,
+        description: values.description,
+        priority: values.priority,
+        status: values.status,
+        assignedTo: values.assignedTo,
         dueDate: values.dueDate.toISOString(),
       },
     };

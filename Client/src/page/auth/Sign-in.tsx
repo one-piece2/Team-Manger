@@ -26,13 +26,14 @@ import { loginMutationFn } from "@/lib/api";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner"
 import { useStore } from "@/store/store";
-
+import { useQueryClient } from "@tanstack/react-query";
 const SignIn = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   //邀请链接
   const returnUrl = searchParams.get("returnUrl");
 
+  const queryClient = useQueryClient();
   const { setAccessToken, setUser } = useStore();
 
   const { mutate, isPending } = useMutation({
@@ -61,13 +62,15 @@ const SignIn = () => {
     if (isPending) return;
     mutate(values, {
       onSuccess: (data) => {
-        const accessToken = data.access_token;
+        const accessToken = data.accessToken;
         const user = data.user;
         const decodedUrl = returnUrl ? decodeURIComponent(returnUrl) : null;
-
+   
         setUser(user);
         setAccessToken(accessToken);
-        navigate(decodedUrl || `/workspace/${user.currentWorkspace}`);
+           // 更新 React Query 缓存，避免跳转后重定向回登录页
+        queryClient.setQueryData(["authUser"], { user });
+        navigate(decodedUrl || `/workspace/${user.currentWorkspaceId}`);
       },
       onError: (error) => {
         console.log(error);

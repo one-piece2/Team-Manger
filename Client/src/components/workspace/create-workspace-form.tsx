@@ -57,7 +57,7 @@ export default function CreateWorkspaceForm({
         });
         const workspace = data.workspace;
         onClose();
-        navigate(`/workspace/${workspace._id}`);
+        navigate(`/workspace/${workspace.id}`);
       },
       onError: (error) => {
         console.log(error);

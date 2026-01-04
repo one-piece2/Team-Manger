@@ -1,20 +1,19 @@
 import {
   Injectable,
-  NestInterceptor,
+  CanActivate,
   ExecutionContext,
-  CallHandler,
   UnauthorizedException,
 } from '@nestjs/common';
-import { Observable } from 'rxjs';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Member } from '../../database/entities/member.entity';
 import { Workspace } from '../../database/entities/workspace.entity';
 import { NotFoundException } from '../exceptions/app.exception';
 
-// 成员角色拦截器 - 用于获取用户在工作空间中的角色并设置到 request.memberRole
+// 成员角色守卫 - 用于获取用户在工作空间中的角色并设置到 request.memberRole
+// 必须在 RoleGuard 之前执行
 @Injectable()
-export class MemberRoleInterceptor implements NestInterceptor {
+export class MemberRoleGuard implements CanActivate {
   constructor(
     @InjectRepository(Member)
     private memberRepository: Repository<Member>,
@@ -22,32 +21,23 @@ export class MemberRoleInterceptor implements NestInterceptor {
     private workspaceRepository: Repository<Workspace>,
   ) {}
 
-  async intercept(
-    context: ExecutionContext,
-    next: CallHandler,
-  ): Promise<Observable<any>> {
+  async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
     const user = request.user;
-    
-    // 从路由参数中获取 workspaceId
-    const workspaceId = request.params.id || request.params.workspaceId;
 
-    console.log('MemberRoleInterceptor - Request info:', {
-      url: request.url,
-      method: request.method,
-      workspaceId,
-      userId: user?.id,
-      params: request.params,
-    });
+    // 从路由参数中获取 workspaceId
+    // 优先使用 workspaceId 参数，如果不存在则使用 id（用于 /workspace/:id 这样的路由）
+    const workspaceId = request.params.workspaceId || request.params.id;
+
 
     if (!workspaceId) {
       // 如果没有 workspaceId，跳过角色检查
-      console.log('MemberRoleInterceptor - No workspaceId found, skipping');
-      return next.handle();
+      console.log('MemberRoleGuard - No workspaceId found, skipping');
+      return true;
     }
 
     if (!user || !user.id) {
-      console.log('MemberRoleInterceptor - User not authenticated');
+      console.log('MemberRoleGuard - User not authenticated');
       throw new UnauthorizedException('User not authenticated');
     }
 
@@ -69,15 +59,10 @@ export class MemberRoleInterceptor implements NestInterceptor {
       relations: ['role'],
     });
 
-    console.log('MemberRoleInterceptor - Member found:', {
-      memberId: member?.id,
-      roleId: member?.roleId,
-      roleName: member?.role?.name,
-      hasRole: !!member?.role,
-    });
+
 
     if (!member) {
-      console.log('MemberRoleInterceptor - User is not a member of workspace');
+      console.log('MemberRoleGuard - User is not a member of workspace');
       throw new UnauthorizedException(
         'You are not a member of this workspace',
       );
@@ -85,13 +70,7 @@ export class MemberRoleInterceptor implements NestInterceptor {
 
     // 检查角色是否存在
     if (!member.role || !member.role.name) {
-      console.error('MemberRoleInterceptor - Member role not found:', {
-        memberId: member.id,
-        userId: user.id,
-        workspaceId,
-        roleId: member.roleId,
-        role: member.role,
-      });
+
       throw new UnauthorizedException(
         'Member role not properly configured',
       );
@@ -99,7 +78,8 @@ export class MemberRoleInterceptor implements NestInterceptor {
 
     // 将角色名称设置到 request.memberRole
     request.memberRole = member.role.name;
+    console.log('MemberRoleGuard - Role set successfully:', request.memberRole);
 
-    return next.handle();
+    return true;
   }
 }

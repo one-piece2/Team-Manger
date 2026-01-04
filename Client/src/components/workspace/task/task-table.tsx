@@ -128,26 +128,26 @@ const DataTableFilterToolbar: FC<DataTableFilterToolbarProps> = ({
           </span>
         </div>
       ),
-      value: project._id,
+      value: project.id,
     };
   });
 
   // 成员选项
   const assignees = members.map((member: any) => {
-    const name = member.userId?.name;
+    const name = member.user?.name;
     const initials = getAvatarFallbackText(name);
     const avatarColor = getAvatarColor(name);
     return {
       label: (
         <div className="flex items-center space-x-2">
           <Avatar className="h-7 w-7">
-            <AvatarImage src={member.userId?.profilePicture || ""} alt={name} />
+            <AvatarImage src={member.user?.profilePicture || ""} alt={name} />
             <AvatarFallback className={avatarColor}>{initials}</AvatarFallback>
           </Avatar>
           <span>{name}</span>
         </div>
       ),
-      value: member.userId?._id || "",
+      value: member.user?.id || "",
       icon: undefined,
     };
   });

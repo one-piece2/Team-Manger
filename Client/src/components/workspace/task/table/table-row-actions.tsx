@@ -1,7 +1,6 @@
 import { useState } from "react";
 import type { Row } from "@tanstack/react-table";
 import { MoreHorizontal } from "lucide-react";
-
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -12,6 +11,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { ConfirmDialog } from "@/components/resuable/confirm-dialog";
+import EditTaskDialog from "../edit-task-dialog";
 import { type TaskType } from "@/types/api.type";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import useWorkspaceId from "@/hooks/use-workspace-id";
@@ -24,6 +24,7 @@ interface DataTableRowActionsProps {
 //表格行操作
 export function DataTableRowActions({ row }: DataTableRowActionsProps) {
   const [openDeleteDialog, setOpenDialog] = useState(false);
+  const [openEditDialog, setOpenEditDialog] = useState(false);
   const queryClient = useQueryClient();
   const workspaceId = useWorkspaceId();
 
@@ -31,7 +32,7 @@ export function DataTableRowActions({ row }: DataTableRowActionsProps) {
     mutationFn: deleteTaskMutationFn,
   });
 
-  const taskId = row.original._id as string;
+  const taskId = row.original.id as string;
   const taskCode = row.original.taskCode;
 
   const handleConfirm = () => {
@@ -67,7 +68,10 @@ export function DataTableRowActions({ row }: DataTableRowActionsProps) {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="w-[160px]">
-          <DropdownMenuItem className="cursor-pointer">
+          <DropdownMenuItem
+            className="cursor-pointer"
+            onClick={() => setOpenEditDialog(true)}
+          >
             Edit Task
           </DropdownMenuItem>
           <DropdownMenuSeparator />
@@ -90,6 +94,12 @@ export function DataTableRowActions({ row }: DataTableRowActionsProps) {
         description={`Are you sure you want to delete ${taskCode}`}
         confirmText="Delete"
         cancelText="Cancel"
+      />
+
+      <EditTaskDialog
+        task={row.original}
+        isOpen={openEditDialog}
+        onClose={() => setOpenEditDialog(false)}
       />
     </>
   );

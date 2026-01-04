@@ -34,7 +34,7 @@ export default function EditProjectForm(props: {
   const [emoji, setEmoji] = useState("📊");
 
   const workspaceId = useWorkspaceId();
-  const projectId = project?._id as string;
+  const projectId = project?.id as string;
 
   const queryClient = useQueryClient();
 

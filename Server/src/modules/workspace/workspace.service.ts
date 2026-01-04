@@ -111,7 +111,7 @@ export class WorkspaceService {
 
     const members = await this.memberRepository.find({
       where: { workspaceId },
-      relations: ['role'],
+      relations: ['role', 'user'],
     });
 
     return {
