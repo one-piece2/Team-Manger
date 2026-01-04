@@ -280,3 +280,38 @@ export type AllTaskResponseType = {
   tasks: TaskType[];
   pagination: PaginationType;
 };
+
+
+
+//-------------成员----------------
+export type MemberType = {
+  _id: string;
+  userId: {
+    _id: string;
+    name: string;
+    email: string;
+    profilePicture: string | null;
+  };
+  workspaceId: string;
+  role: {
+    _id: string;
+    name: string;
+  };
+  joinedAt: Date;
+};
+
+// 获取所有成员响应
+export type AllMembersInWorkspaceResponseType = {
+  message: string;
+  members: MemberType[];
+  roles: RoleType[];
+};
+
+// 修改成员角色
+export type ChangeWorkspaceMemberRoleType = {
+  workspaceId: string;
+  data: {
+    memberId: string;
+    roleId: string;
+  };
+};

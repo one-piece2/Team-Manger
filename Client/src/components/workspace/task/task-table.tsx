@@ -14,7 +14,7 @@ import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
 import { DataTableFacetedFilter } from "./table/table-faceted-filter";
 import { priorities, statuses } from "./table/data";
-import useWorkspaceMembers from "@/hooks/api/use-workspace-members";
+import useWorkspaceMembers from "@/hooks/api/use-get-workspace-members";
 import { getAvatarColor, getAvatarFallbackText } from "@/lib/helper";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import useGetProjectsInWorkspaceQuery from "@/hooks/api/use-all-project";

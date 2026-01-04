@@ -98,7 +98,8 @@ export function WorkspaceSwitcher() {
                 ) : (
                   <div className="grid flex-1 text-left text-sm leading-tight">
                     <span className="truncate font-semibold">
-                        没有工作空间被选择
+                
+                        no workspace selected
                     </span>
                   </div>
                 )}
