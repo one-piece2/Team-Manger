@@ -30,6 +30,7 @@ import { useStore } from "@/store/store";
 const SignIn = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+  //邀请链接
   const returnUrl = searchParams.get("returnUrl");
 
   const { setAccessToken, setUser } = useStore();

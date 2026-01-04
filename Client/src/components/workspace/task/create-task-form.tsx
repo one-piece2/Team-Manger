@@ -35,7 +35,7 @@ import {
   transformOptions,
 } from "@/lib/helper";
 import useWorkspaceId from "@/hooks/use-workspace-id";
-import useWorkspaceMembers from "@/hooks/api/use-workspace-members";
+import useWorkspaceMembers from "@/hooks/api/use-get-workspace-members";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { TaskPriorityEnum, TaskStatusEnum } from "@/constant";
 import { createTaskMutationFn } from "@/lib/api";

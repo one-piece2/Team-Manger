@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { getMembersInWorkspaceQueryFn } from "@/lib/api";
 
-const useWorkspaceMembers = (workspaceId: string) => {
+const useGetWorkspaceMembers = (workspaceId: string) => {
   const query = useQuery({
     queryKey: ["members", workspaceId],
     queryFn: () => getMembersInWorkspaceQueryFn(workspaceId),
@@ -11,4 +11,4 @@ const useWorkspaceMembers = (workspaceId: string) => {
   return query;
 };
 
-export default useWorkspaceMembers;
+export default useGetWorkspaceMembers;

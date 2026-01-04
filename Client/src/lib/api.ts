@@ -20,6 +20,8 @@ import type{
   EditTaskPayloadType,
   AllTaskPayloadType,
   AllTaskResponseType,
+  AllMembersInWorkspaceResponseType,
+  ChangeWorkspaceMemberRoleType,
 } from "@/types/api.type";
 
 // 登录
@@ -235,5 +237,35 @@ export const deleteTaskMutationFn = async ({
   const response = await API.delete(
     `task/${taskId}/workspace/${workspaceId}/delete`
   );
+  return response.data;
+};
+
+
+//--------------MEMBER----------------
+// 获取工作空间成员
+export const getMembersInWorkspaceQueryFn = async (
+  workspaceId: string
+): Promise<AllMembersInWorkspaceResponseType> => {
+  const response = await API.get(`/workspace/members/${workspaceId}`);
+  return response.data;
+};
+
+// 修改成员角色
+export const changeWorkspaceMemberRoleMutationFn = async ({
+  workspaceId,
+  data,
+}: ChangeWorkspaceMemberRoleType) => {
+  const response = await API.put(
+    `/workspace/change/member/role/${workspaceId}`,
+    data
+  );
+  return response.data;
+};
+
+// 邀请用户加入工作空间
+export const invitedUserJoinWorkspaceMutationFn = async (
+  inviteCode: string
+): Promise<{ message: string; workspaceId: string }> => {
+  const response = await API.post(`/member/workspace/${inviteCode}/join`);
   return response.data;
 };
