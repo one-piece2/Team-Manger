@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import CreateTaskDialog from "../task/create-task-dialog";
+import CreateTaskDialog from "@/components/workspace/task/create-task-dialog";
 import { EditProjectDialog } from "./edit-project-dialog";
 import { getProjectByIdQueryFn } from "@/lib/api";
 import useWorkspaceId from "@/hooks/use-workspace-id";
