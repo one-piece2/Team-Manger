@@ -207,3 +207,76 @@ export type PaginationType = {
   skip: number;
   limit: number;
 };
+
+//--------------------任务---------------
+// 创建任务
+export type CreateTaskPayloadType = {
+  workspaceId: string;
+  projectId: string;
+  data: {
+    title: string;
+    description: string;
+    priority: TaskPriorityEnumType;
+    status: TaskStatusEnumType;
+    assignedTo: string;
+    dueDate: string;
+  };
+};
+
+// 编辑任务
+export type EditTaskPayloadType = {
+  taskId: string;
+  workspaceId: string;
+  projectId: string;
+  data: Partial<{
+    title: string;
+    description: string;
+    priority: TaskPriorityEnumType;
+    status: TaskStatusEnumType;
+    assignedTo: string;
+    dueDate: string;
+  }>;
+};
+
+// 获取所有任务
+export type AllTaskPayloadType = {
+  workspaceId: string;
+  projectId?: string | null;
+  keyword?: string | null;
+  priority?: TaskPriorityEnumType | null;
+  status?: TaskStatusEnumType | null;
+  assignedTo?: string | null;
+  dueDate?: string | null;
+  pageNumber?: number | null;
+  pageSize?: number | null;
+};
+
+// 任务类型
+export type TaskType = {
+  _id: string;
+  title: string;
+  description?: string;
+  project?: {
+    _id: string;
+    emoji: string;
+    name: string;
+  };
+  priority: TaskPriorityEnumType;
+  status: TaskStatusEnumType;
+  assignedTo: {
+    _id: string;
+    name: string;
+    profilePicture: string | null;
+  } | null;
+  createdBy?: string;
+  dueDate: string;
+  taskCode: string;
+  createdAt?: string;
+  updatedAt?: string;
+};
+
+export type AllTaskResponseType = {
+  message: string;
+  tasks: TaskType[];
+  pagination: PaginationType;
+};

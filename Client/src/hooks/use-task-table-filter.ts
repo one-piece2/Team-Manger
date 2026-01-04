@@ -10,7 +10,7 @@ const useTaskTableFilter = () => {
   });
 //读:filters对象会自动从当前 URL (?status=done&keyword=bug) 中读取对应的值。如果没有，就用 "" (默认值)。
 //写 (Write): 当你调用 setFilters({ status: 'in-progress' }) 时，它不仅会更新 React 的状态让组件重渲染，还会自动修改浏览器的 URL。
-  return { filters, setFilters };
+  return [filters, setFilters] as const;
 };
 
 export default useTaskTableFilter;
