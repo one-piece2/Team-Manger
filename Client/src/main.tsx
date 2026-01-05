@@ -6,7 +6,6 @@ import QueryProvider from "./context/query-provider.tsx";
 import { NuqsAdapter } from "nuqs/adapters/react";
 import { Toaster } from "@/components/ui/sonner"
 createRoot(document.getElementById('root')!).render(
-    
     <QueryProvider>
         <NuqsAdapter>
             <Toaster />

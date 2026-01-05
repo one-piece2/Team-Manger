@@ -66,9 +66,9 @@ export const getAvatarColor = (name: string): string => {
     case 7:
       return "bg-orange-500 text-black";
     case 8:
-      return "bg-gray-500 text-white";
+      return "bg-indigo-500 text-white";
     default:
-      return "bg-gray-500 text-white";
+      return "bg-purple-500 text-white";
   }
 };
 

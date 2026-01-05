@@ -148,7 +148,7 @@ export default function CreateWorkspaceForm({
       </div>
       <div
         className="relative flex-1 shrink-0 hidden bg-muted md:block
-      bg-[url('/public/workspace.jpg')] bg-cover bg-center h-full
+      bg-[url('/images/workspace.jpg')] bg-cover bg-center h-full
       "
       />
     </main>
